@@ -1,0 +1,155 @@
+
+//Program name   :队列元素逆置
+//Written by     :caitao
+//Date           :28/10/2018
+//Version number :VC 6.0
+#include<iostream>
+using namespace std;
+template <class T>
+
+class Queue
+{
+public:
+	Queue();             //构造函数
+	void EnQueue(int &t);//队列不满，则将x进队。
+	void DeQueue(int &t);//若队列不空，则退出队头元素。
+	bool IsEmpty();      //判断队列是否为空。若队列空，则函数返回true；否则返回false。
+	bool IsFull();       //判断队列满否。若队列满，则返回true；否则返回false。
+private:
+	int rear,front;
+	int *data;
+	int maxSize;
+};
+template <class T>
+
+class Stack
+{
+public:
+	Stack<T>();			//构造函数
+	void Push(int &t);	//新元素进栈
+	void Pop(int &t);	//元素出栈
+	bool IsEmpty();		//判断栈空否
+	bool IsFull();		//判断栈满否
+private:
+	int top,maxSize;
+	int *data;
+};
+
+template <class T>
+
+Queue<T>::Queue()
+{ 
+	front=rear=0;
+	maxSize=20000; 
+	data=new int [maxSize];
+}
+
+template <class T>
+
+void Queue<T>::EnQueue(int &t)
+{
+	if(IsFull()==true)
+		return  ;
+	else
+	{
+		data[rear]=t;
+		rear=(rear+1)%maxSize;
+	}
+}
+
+template <class T>
+
+void Queue<T>::DeQueue(int &t)
+{
+	if(IsEmpty()==true)
+		return ;
+	else
+	{
+		t=data[front];
+		front=(front+1)%maxSize;
+	}
+}
+
+template <class T>
+
+bool Queue<T>::IsFull()
+{	
+	return ((rear+1)%maxSize==front)?true:false;	
+}
+
+template <class T>
+
+bool Queue<T>::IsEmpty()
+{
+	return (front==rear)?true:false;
+}
+
+template <class T>
+
+Stack<T>::Stack()
+{
+	top=-1; 
+	maxSize=20000; 
+	data=new int [maxSize];
+}
+
+template <class T>
+
+void Stack<T>::Push(int &t)
+{
+	if(IsFull()==true)
+		return;
+	else
+		data[++top]=t;
+}
+
+template <class T>
+
+void Stack<T>::Pop(int &t)
+{
+	if(IsEmpty()==true)
+		return ;
+	else
+		t=data[top--];
+}
+
+template <class T>
+
+bool Stack<T>::IsEmpty()
+{
+	return (top==-1)?true:false;
+}
+
+template <class T>
+
+bool Stack<T>::IsFull()
+{
+	return (top==maxSize-1)?true:false;
+}
+int main()
+{
+	Queue<int> D;
+	Stack<int> Z;
+	int i,n,x;
+	cout<<"请输入队列元素个数： " <<endl; 
+	cin>>n;
+	cout<<"请输入队列元素：(空格分开)"<<endl; 
+	for(i=0;i<n;i++)
+	{
+		cin>>x;
+		Z.Push(x);
+	}
+	for(i=0;i<n;i++)
+	{
+		Z.Pop(x);
+		D.EnQueue(x);
+	}
+	for(i=0;i<n-1;i++)
+	{
+		D.DeQueue(x);
+		cout<<x<<" ";
+	}
+	D.DeQueue(x);
+	cout<<x<<endl;
+	return 0;
+}
