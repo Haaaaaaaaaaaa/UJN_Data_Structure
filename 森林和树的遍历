@@ -1,13 +1,4 @@
-/*
-1
-2 3
-4 5 6 / 7 8 9
-10 11 / / 12
-1)创建树和森林;
-2)树和森林的先根遍历的递归和迭代算法;
-3)树和森林的后根遍历的递归和迭代算法;
-4)树和森林的层次遍历算法。
-*/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -127,7 +118,8 @@ int Tree<T>::add(int t_count)
       add(p,dat,nth);//第二层及以上的结点添加函数 
     }
   }
-  cout<<"目前共"<<count<<"个节点"<<endl;//显示一共有多少结点 
+  cout<<"目前共"<<count<<"个节点"<<endl;//显示一共有多少结点
+  cout<<"请选择要做的操作："<<endl;
   return 0;
 }
 
@@ -305,41 +297,49 @@ int Tree<T>::show_layer()
 
 int main()
 {
-  string s;
+  int a=0,b=0;
+
   int temp,ret;
   char dat;
   int t_count=1;
   Tree<char> tree;
-  while(cin>>s)//先输入s用来判断执行什么操作 
-  {
-    if(s=="add")//s==add则进入创建树和森林 
+  cout<<"输入你要的操作 1.创建树  2.遍历  3.退出："<<endl;
+  while(a!=3)//先输入s用来判断执行什么操作 
+  { cin>>a;
+    if(a==1)//s==add则进入创建树和森林 
     {
       tree.add(t_count++);
     }
-    if(s=="show")//s==show,则进行遍历 
+    if(a==2)//s==show,则进行遍历 
     {
-      cin>>s;
-      if(s=="pre")//先根遍历 
+	  cout<<"请输入遍历方式：  1.先根遍历   2.后根遍历   3.层次遍历 "<<endl;
+      cin>>b;
+      if(b==1)//先根遍历 
       {
-         tree.pre_r(tree.root_p());//先根的递归遍历 
+		cout<<"先根的递归遍历为:"<<endl;
+        tree.pre_r(tree.root_p());//先根的递归遍历 
         cout<<endl;
-       tree.pre_i();//先根的迭代遍历 
+		cout<<"先根的迭代遍历为:"<<endl;
+        tree.pre_i();//先根的迭代遍历 
         cout<<endl;
       }
-      if(s=="post")//后根遍历 
+      if(b==2)//后根遍历 
       {
+        cout<<"后根的递归遍历为:"<<endl;
         tree.post_r(tree.root_p());  //后根的递归遍历 
         cout<<endl;
+		cout<<"后跟的迭代遍历为:"<<endl;
       	tree.post_i();//后跟的迭代遍历
         cout<<endl;
       }
-      if(s=="layer")
+      if(b==3)
       {
+		cout<<"层次遍历为:"<<endl;
         tree.show_layer();// 层次遍历 
         cout<<endl;
       }
-
-    }
+   if(a==3)
+    break;}
   }
 
   return 0;
